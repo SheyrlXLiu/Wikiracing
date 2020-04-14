@@ -22,7 +22,7 @@ Python 3.7.6
 
 ### Installing
 
-1. In the terminal, type :
+1. In the terminal, copy and paste the command below:
 
 ```
 git clone https://github.com/SheyrlXLiu/Wikiracing.git
@@ -34,7 +34,7 @@ git clone https://github.com/SheyrlXLiu/Wikiracing.git
 cd Wikiracing/
 ```
 
-3. Install required modules by typing:
+3. Install required modules by :
 
 ```
 pip install -r requirements.txt
