@@ -77,11 +77,11 @@ def crawl(title1, title2):
     if "http" in title1:
         title1 = get_title(title1)
     else: 
-        title1 = title1
+        title1 = title1.capitalize()
     if "http" in title2:
         title2 = get_title(title2)
     else: 
-        title2 = title2
+        title2 = title2.capitalize()
     for depth in range(10):
         route = DFS(title1, title2, depth)
         if route:
@@ -93,8 +93,8 @@ def crawl(title1, title2):
 if __name__ == '__main__':
 #Main execution of the project. The command will ask users to type the start point and the destination. 
 #Then the program will start crawling and counting the time. 
-    title1 = str(input("Please type in your start point: ")).capitalize()
-    title2 = str(input("Please type in your end point: ")).capitalize()
+    title1 = str(input("Please type in your start point: "))
+    title2 = str(input("Please type in your end point: "))
     print('***Working***')
     start = timer()
     crawl(title1, title2)
