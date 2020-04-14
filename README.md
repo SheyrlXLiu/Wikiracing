@@ -62,6 +62,8 @@ Then follow the instructions in the termial to input the start point and destina
 
 * API Requests: 2 hours
 
+* Get all titles: 2 hours
+
 2. To crawl the Mediawiki API:
 
 * DFS: 1 day
