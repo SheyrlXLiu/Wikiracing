@@ -1,4 +1,4 @@
-# wikiracing
+# Wikiracing
 
 Wikiracing is a Python command line tool to traverse a way from one Wikipedia page to another, using only links. This tool will return a list of titles that form a path between the source and destination through snetwork requests made to the WikiMedia API.
 
