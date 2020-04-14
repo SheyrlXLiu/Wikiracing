@@ -60,13 +60,13 @@ Then follow the instructions in the termial to input the start point and destina
 
 * Beautifulsoup: 30 mins
 
-** API Requests: 2 hours
+* API Requests: 2 hours
 
 2. To crawe the Mediawiki API:
 
 * DFS: 1 day
 
-** BFS: 5 hours
+* BFS: 5 hours
 
 ## References:
 
