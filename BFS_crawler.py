@@ -2,14 +2,23 @@ from bs4 import BeautifulSoup
 import requests
 import json
 from collections import deque
+from timeit import default_timer as timer
+from datetime import timedelta
 
 def get_title(wikipedia_url):
+#This function is to get title from a url.
+#It utilizes BeautifulSoup to parse the html and get the title.
     html_file = requests.get(wikipedia_url).content.decode()
     soup = BeautifulSoup(html_file, 'html.parser')
-    wikipeida_title = soup.find('title')
-    print(wikipeida_title.string.replace(' - Wikipedia', ''))
+    title = soup.find('title')
+    wikipeida_title = title.string.replace(' - Wikipedia', '')
+    return wikipeida_title
+
+
 
 def get_all_titles(wikipeida_title):
+#The function starts from one title and gathers all related titles.
+#This function utilizes query request to the Mediawiki API to get results of titles.  
     if ' ' in wikipeida_title:
         parse_title = wikipeida_title.replace(' ', '_')
     else:
@@ -41,7 +50,10 @@ def get_all_titles(wikipeida_title):
         titles = titles.union(set(title['title'] for title in links))
         return titles
 
+
 def BFS(title1, title2, depth):
+#The BFS function. 
+#The function starts from title1, search all possible neighbor braches at the present depth prior to moving on to the branch at the next depth level.
     if title1 == title2:
         return title1
     queue = deque([(title1, [title1])])
@@ -56,20 +68,10 @@ def BFS(title1, title2, depth):
                 queue.append((next, path + [next]))
     return
 
-def visited_path():
-    path = [title2]
-    if title1 == title2:
-        return title1
-    while title2 != title1:
-        title2 = parent[title2]
-        path.insert(0, title2)
 
-
-'''
-The crawl funciton of the project. 
-The function will transfer any urls to titles then revoke the DFS function to start the searching process. 
-'''
 def crawl(title1, title2):
+#The crawl funciton of the project. 
+#The function will transfer any urls to titles then revoke the DFS function to start the searching process. 
     if "http" in title1:
         title1 = str(get_title(title1))
     else: 
@@ -86,14 +88,15 @@ def crawl(title1, title2):
     return 'Unable to find route up to depth=10'
 
 
-'''
-Main execution of the project. The command will ask users to type the start point and the destination. 
-Then the program will start crawling. 
-'''
 if __name__ == '__main__':
+#Main execution of the project. The command will ask users to type the start point and the destination. 
+#Then the program will start crawling and counting the time. 
     title1 = str(input("Please type in your start point: "))
-    title2 = str(input("Please type in your start point: "))
+    title2 = str(input("Please type in your end point: "))
     print('***Working***')
+    start = timer()
     crawl(title1, title2)
     print('***Finished***')
-    
+    end = timer()
+    print("Time used:")
+    print(timedelta(seconds=end-start))
