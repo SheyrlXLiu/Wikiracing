@@ -22,45 +22,37 @@ Python 3.7.6
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
+1. In the terminal, type :
 
 ```
-Give the example
+git clone https://github.com/SheyrlXLiu/Wikiracing.git
 ```
 
-And repeat
+2. Change the directory to Wikiracing by:
 
 ```
-until finished
+cd Wikiracing/
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
-
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
+3. Install required modules by typing:
 
 ```
-Give an example
+pip install -r requirements.txt
 ```
 
-### And coding style tests
-
-Explain what these tests test and why
+4. To start a search using DFS, type:
 
 ```
-Give an example
+python python DFS_crawler.py 
 ```
+Then follow the instructions in the termial to input the start point and destination. 
 
-## Deployment
+5. To start a search using BFS, type:
 
-Add additional notes about how to deploy this on a live system
+```
+python python BFS_crawler.py 
+```
+Then follow the instructions in the termial to input the start point and destination. 
 
 
 ## References:
