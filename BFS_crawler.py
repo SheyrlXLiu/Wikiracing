@@ -1,31 +1,13 @@
 from bs4 import BeautifulSoup
 import requests
 import json
-
+from collections import deque
 
 def get_title(wikipedia_url):
     html_file = requests.get(wikipedia_url).content.decode()
     soup = BeautifulSoup(html_file, 'html.parser')
     wikipeida_title = soup.find('title')
     print(wikipeida_title.string.replace(' - Wikipedia', ''))
-
-def get_url(wikipeida_title):
-    if ' ' in wikipeida_title:
-        parse_title = wikipeida_title.replace(' ', '_')
-        API = 'http://en.wikipedia.org/w/api.php'
-        params = {
-        'action':'query',
-        'prop':'info',
-        'inprop':'url',
-        'titles': parse_title,
-        'format':'json'
-        }
-        request = requests.get(API, params)
-        json_file = json.loads(request.content)
-        pageid = list(json_file['query']['pages'].values())[0]['pageid']
-        fullurl = list(json_file['query']['pages'].values())[0]['fullurl']
-        return fullurl
-
 
 def get_all_titles(wikipeida_title):
     if ' ' in wikipeida_title:
@@ -62,11 +44,6 @@ def get_all_titles(wikipeida_title):
 def BFS(title1, title2, depth):
     if title1 == title2:
         return title1
-    if "http" in title1:
-        title1 = get_title(title1)
-    if "http" in title2:
-        title2 = get_title(title2)
-
     queue = deque([(title1, [title1])])
     while queue:
         vertex, path = queue.popleft()
@@ -79,7 +56,6 @@ def BFS(title1, title2, depth):
                 queue.append((next, path + [next]))
     return
 
-
 def visited_path():
     path = [title2]
     if title1 == title2:
@@ -89,11 +65,30 @@ def visited_path():
         path.insert(0, title2)
 
 def crawl(title1, title2):
+    if "http" in title1:
+        title1 = str(get_title(title1))
+    else: 
+        title1 = str(title1)
+    if "http" in title2:
+        title2 = str(get_title(title2))
+    else: 
+        title2 = str(title2)
     for depth in range(10):
         route = BFS(title1, title2, depth)
         if route:
             print(*route, sep='\n')
             return route
-    return 'Unable to find route up to depth=9'
+    return 'Unable to find route up to depth=10'
 
-get_title('https://en.wikipedia.org/wiki/(G)I-dle')
+
+'''
+Main execution of the project. The command will ask users to type the start point and the destination. 
+Then the program will start crawling. 
+'''
+if __name__ == '__main__':
+    title1 = str(input("Please type in your start point: "))
+    title2 = str(input("Please type in your start point: "))
+    print('***Working***')
+    crawl(title1, title2)
+    print('***Finished***')
+    

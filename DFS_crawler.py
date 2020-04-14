@@ -4,27 +4,10 @@ import json
 
 
 def get_title(wikipedia_url):
-	html_file = requests.get(wikipedia_url).content.decode()
-	soup = BeautifulSoup(html_file, 'html.parser')
-	wikipeida_title = soup.title.string
-
-def get_url(wikipeida_title):
-    if ' ' in wikipeida_title:
-        wikipeida_title = wikipeida_title.replace(' ', '_')
-        API = 'http://en.wikipedia.org/w/api.php'
-        params = {
-        'action':'query',
-        'prop':'info',
-        'inprop':'url',
-        'titles': wikipeida_title,
-        'format':'json'
-        }
-        request = requests.get(API, params)
-        json_file = json.loads(request.content)
-        pageid = list(json_file['query']['pages'].values())[0]['pageid']
-        fullurl = list(json_file['query']['pages'].values())[0]['fullurl']
-        return fullurl
-
+    html_file = requests.get(wikipedia_url).content.decode()
+    soup = BeautifulSoup(html_file, 'html.parser')
+    wikipeida_title = soup.find('title')
+    print(wikipeida_title.string.replace(' - Wikipedia', ''))
 
 def get_all_titles(wikipeida_title):
     if ' ' in wikipeida_title:
@@ -78,11 +61,29 @@ def DFS(title1, title2, depth):
     return
 
 def crawl(title1, title2):
+    if "http" in title1:
+        title1 = get_title(title1)
+    else: 
+        title1 = title1
+    if "http" in title2:
+        title2 = get_title(title2)
+    else: 
+        title2 = title2
     for depth in range(10):
         route = DFS(title1, title2, depth)
         if route:
             print(*route, sep='\n')
             return route
-    return 'Unable to find route up to depth=9'
+    return 'Unable to find route up to depth=10'
 
-crawl('Minnesota', 'Gopher')
+
+'''
+Main execution of the project. The command will ask users to type the start point and the destination. 
+Then the program will start crawling. 
+'''
+if __name__ == '__main__':
+    title1 = str(input("Please type in your start point: "))
+    title2 = str(input("Please type in your start point: "))
+    print('***Working***')
+    crawl(title1, title2)
+    print('***Finished***')
