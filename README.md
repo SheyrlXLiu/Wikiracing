@@ -2,10 +2,23 @@
 
 Wikiracing is a Python command line tool to traverse a way from one Wikipedia page to another, using only links. This tool will return a list of titles that form a path between the source and destination through snetwork requests made to the WikiMedia API.
 
+## Getting Started
+
+The project utilized two methods to conduct the searching process: DFS and BFS. 
+
+1. DFS (Depth-first search)
+
+Depth-first search (DFS) is an algorithm for traversing or searching tree or graph data structures. The algorithm starts at the root node (selecting some arbitrary node as the root node in the case of a graph) and explores as far as possible along each branch before backtracking.
+
+2. BFS ()
+
+Breadth-first search (BFS) is an algorithm for traversing or searching tree or graph data structures. It starts at the tree root (or some arbitrary node of a graph, sometimes referred to as a 'search key'), and explores all of the neighbor nodes at the present depth prior to moving on to the nodes at the next depth level.
+
+It uses the opposite strategy as depth-first search, which instead explores the node branch as far as possible before being forced to backtrack and expand other nodes.
 
 ### Prerequisites
 
-Python 3.6.5
+Python 3.7.6
 
 ### Installing
 
@@ -49,32 +62,9 @@ Give an example
 
 Add additional notes about how to deploy this on a live system
 
-## Built With
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+## References:
 
-## Contributing
+1. https://en.wikipedia.org/wiki/Depth-first_search
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
-
-## Authors
-
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+2. https://en.wikipedia.org/wiki/Breadth-first_search

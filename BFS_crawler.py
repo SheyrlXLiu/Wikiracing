@@ -64,6 +64,11 @@ def visited_path():
         title2 = parent[title2]
         path.insert(0, title2)
 
+
+'''
+The crawl funciton of the project. 
+The function will transfer any urls to titles then revoke the DFS function to start the searching process. 
+'''
 def crawl(title1, title2):
     if "http" in title1:
         title1 = str(get_title(title1))

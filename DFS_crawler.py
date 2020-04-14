@@ -40,7 +40,10 @@ def get_all_titles(wikipeida_title):
         links = json_file['query']['pages'][pageid]['links']
         titles = titles.union(set(title['title'] for title in links))
         return titles
-  
+ 
+'''
+The DFS function. 
+'''  
 def DFS(title1, title2, depth):
     
     if title1 == title2:
@@ -60,6 +63,11 @@ def DFS(title1, title2, depth):
                 stack.append((next, path + [next]))
     return
 
+
+'''
+The crawl funciton of the project. 
+The function will transfer any urls to titles then revoke the DFS function to start the searching process. 
+'''
 def crawl(title1, title2):
     if "http" in title1:
         title1 = get_title(title1)
