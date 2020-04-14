@@ -62,7 +62,7 @@ Then follow the instructions in the termial to input the start point and destina
 
 * API Requests: 2 hours
 
-2. To crawe the Mediawiki API:
+2. To crawl the Mediawiki API:
 
 * DFS: 1 day
 
