@@ -91,8 +91,8 @@ def crawl(title1, title2):
 if __name__ == '__main__':
 #Main execution of the project. The command will ask users to type the start point and the destination. 
 #Then the program will start crawling and counting the time. 
-    title1 = str(input("Please type in your start point: "))
-    title2 = str(input("Please type in your end point: "))
+    title1 = str(input("Please type in your start point: ")).capitalize()
+    title2 = str(input("Please type in your end point: ")).capitalize()
     print('***Working***')
     start = timer()
     crawl(title1, title2)
@@ -100,3 +100,4 @@ if __name__ == '__main__':
     end = timer()
     print("Time used:")
     print(timedelta(seconds=end-start))
+
