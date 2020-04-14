@@ -43,14 +43,14 @@ pip install -r requirements.txt
 4. To start a search using DFS, type:
 
 ```
-python python DFS_crawler.py 
+python DFS_crawler.py 
 ```
 Then follow the instructions in the termial to input the start point and destination. 
 
 5. To start a search using BFS, type:
 
 ```
-python python BFS_crawler.py 
+python BFS_crawler.py 
 ```
 Then follow the instructions in the termial to input the start point and destination. 
 
