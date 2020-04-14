@@ -3,39 +3,21 @@ import requests
 import json
 
 
-
-
-'''
-link_list = []
-for item in all_links:
-	link = item.get('href')
-	link_list.append(link)
-
-link_list = list(filter(lambda link_str: 'http' in str(link_str), link_list))
-link_list = list(filter(lambda link_str: 'en.wikipedia' in str(link_str), link_list))
-'''
-
 def get_title(wikipedia_url):
-	"""
-    Return article's Wikipedia URL.
-    INPUT:
-        title -- string title of article.
-    OUTPUT:
-        fullurl -- string url of article.
-    """
-	html_file = requests.get(wikipedia_url).content.decode()
-	soup = BeautifulSoup(html_file, 'html.parser')
-	wikipeida_title = soup.title.string
+    html_file = requests.get(wikipedia_url).content.decode()
+    soup = BeautifulSoup(html_file, 'html.parser')
+    wikipeida_title = soup.find('title')
+    print(wikipeida_title.string.replace(' - Wikipedia', ''))
 
 def get_url(wikipeida_title):
     if ' ' in wikipeida_title:
-        wikipeida_title = wikipeida_title.replace(' ', '_')
+        parse_title = wikipeida_title.replace(' ', '_')
         API = 'http://en.wikipedia.org/w/api.php'
         params = {
         'action':'query',
         'prop':'info',
         'inprop':'url',
-        'titles': wikipeida_title,
+        'titles': parse_title,
         'format':'json'
         }
         request = requests.get(API, params)
@@ -67,7 +49,8 @@ def get_all_titles(wikipeida_title):
         titles = set(title['title'] for title in links)
         return titles
     except KeyError as e:
-	    print("Didn't find the wikipedia page of " + wikipeida_title + "!")
+        titles = set()
+        return titles
     while 'continue' in json_file:
         params['plcontinue'] = json_file['continue']['plcontinue']
         request = requests.get(URL, params)
@@ -75,45 +58,42 @@ def get_all_titles(wikipeida_title):
         links = json_file['query']['pages'][pageid]['links']
         titles = titles.union(set(title['title'] for title in links))
         return titles
-  
+
 def BFS(title1, title2, depth):
-    
     if title1 == title2:
         return title1
+    if "http" in title1:
+        title1 = get_title(title1)
+    if "http" in title2:
+        title2 = get_title(title2)
 
-    stack = [(title1, [title1])]
-    while stack:
-        (vertex, path) = stack.pop()
+    queue = deque([(title1, [title1])])
+    while queue:
+        vertex, path = queue.popleft()
         sub_titles = get_all_titles(vertex)
-        print(sub_titles)
-        if title2 in sub_titles:
-            return title2
-
+        
         for next in sub_titles - set(path):
             if next == title2:
                 return path + [next]
             elif len(path) < depth:
-                stack.append((next, path + [next]))
+                queue.append((next, path + [next]))
     return
+
+
+def visited_path():
+    path = [title2]
+    if title1 == title2:
+        return title1
+    while title2 != title1:
+        title2 = parent[title2]
+        path.insert(0, title2)
 
 def crawl(title1, title2):
     for depth in range(10):
         route = BFS(title1, title2, depth)
         if route:
-            print(title1)
-            print(route)
+            print(*route, sep='\n')
             return route
     return 'Unable to find route up to depth=9'
-'''
-def main():
-    title1 = str(input("Please enter the start point: "))
-    title2 = str(input("Please enter the end point: "))
-    crawl(title1, title2)
 
-
-
-if __name__ == '__main__':
-    main()
-    # test_cases()
-'''
-crawl('Seattle', 'Thayers')
+get_title('https://en.wikipedia.org/wiki/(G)I-dle')
