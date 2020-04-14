@@ -54,6 +54,19 @@ python BFS_crawler.py
 ```
 Then follow the instructions in the termial to input the start point and destination. 
 
+## Strategies Tried and Time Spent:
+
+1. To get the url and title:
+
+1) Beautifulsoup: 30 mins
+
+2) API Requests: 2 hours
+
+2. To crawe the Mediawiki API:
+
+1) DFS: 1 day
+
+2) BFS: 5 hours
 
 ## References:
 
